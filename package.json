@@ -1,6 +1,6 @@
 {
-  "name": "fetch-cookie",
-  "version": "2.1.0",
+  "name": "@onsite/fetch-cookie",
+  "version": "2.2.0-rc.1",
   "description": "Decorator for a `fetch` function to support automatic cookies.",
   "license": "Unlicense",
   "author": "Val (https://val.codejam.info)",
@@ -21,7 +21,7 @@
     }
   },
   "types": "esm/index.d.ts",
-  "repository": "valeriangalliat/fetch-cookie",
+  "repository": "https://github.com/chorpler/fetch-cookie",
   "scripts": {
     "build": "esbuild src/*.ts --format=esm --outdir=esm && esbuild src/*.ts --format=cjs --outdir=cjs",
     "lint": "ts-standard src/*.ts test/*.js",
