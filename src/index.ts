@@ -212,16 +212,20 @@ function getCookiesFromResponse (response: Response): string[] {
   if (typeof maybeNodeFetchHeaders.getAll === 'function') {
     // node-fetch v1
     return maybeNodeFetchHeaders.getAll('set-cookie');
-  }
-
-  if (typeof maybeNodeFetchHeaders.raw === 'function') {
+  } else if (typeof maybeNodeFetchHeaders.raw === 'function') {
     // node-fetch v2
     const headers = maybeNodeFetchHeaders.raw();
 
     if (Array.isArray(headers['set-cookie'])) {
       return headers['set-cookie'];
     }
-
+  } else if(typeof maybeNodeFetchHeaders.keys === 'function') {
+    const headerKeys = Array.from(maybeNodeFetchHeaders.keys());
+    if(headerKeys.indexOf('set-cookie') > -1) {
+      let cookie1 = maybeNodeFetchHeaders.get("set-cookie");
+      cookie1 = cookie1 != null ? cookie1 : "";
+      return ['set-cookie', cookie1];
+    }
     return [];
   }
 

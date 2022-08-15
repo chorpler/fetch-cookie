@@ -1,5 +1,5 @@
-import fetchCookie from 'fetch-cookie'
+import fetchCookie from 'fetch-cookie';
 
 if (typeof fetchCookie !== 'function') {
-  throw new Error('Not good')
+  throw new Error('Not good');
 }

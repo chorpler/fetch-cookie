@@ -6,3 +6,4 @@
 *.code-workspace
 /.eslint*
 /.tool-versions
+/*.org

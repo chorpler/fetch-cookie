@@ -1,8 +1,8 @@
 /* eslint-env mocha */
 
 import { assert } from 'chai';
-import fetchCookie from 'fetch-cookie';
-import * as nodeFetch3 from 'node-fetch';
+import fetchCookie from '@onsite/fetch-cookie';
+import * as nodeFetch3 from '@onsite/node-fetch';
 import nodeFetch2 from 'node-fetch-2';
 import * as undici from 'undici';
 import app from './test-server.js';
@@ -32,7 +32,7 @@ after('stop test server', () => {
 
 suite('node-fetch@3', nodeFetch3.default, nodeFetch3.Request);
 suite('node-fetch@2', nodeFetch2, nodeFetch2.Request);
-suite('undici', undici.fetch, undici.Request);
+// suite('undici', undici.fetch, undici.Request);
 
 function suite (name, fetchImpl, Request) {
   describe(name, () => {
