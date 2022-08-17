@@ -27,7 +27,8 @@
   "types": "esm/index.d.ts",
   "repository": "https://github.com/chorpler/fetch-cookie",
   "scripts": {
-    "buildprep": "npm --prefix test/node_modules/node-fetch-2 ci && npm run patch-undici && npm run test && npm publish --dry-run",
+    "buildpreporiginal": "npm --prefix test/node_modules/node-fetch-2 ci && npm run patch-undici && npm run test && npm publish --dry-run",
+    "buildprep": "npm --prefix test/node_modules/node-fetch-2 ci && npm run patch-undici",
     "build": "esbuild src/*.ts --format=esm --outdir=esm && esbuild src/*.ts --format=cjs --outdir=cjs",
     "clean": "rimraf esm cjs && mkdirp esm cjs",
     "lint": "eslint src/*.ts test/*.js",
