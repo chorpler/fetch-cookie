@@ -1,11 +1,25 @@
 /* eslint-env mocha */
 
-import { assert } from 'chai';
-import fetchCookie from '@onsite/fetch-cookie';
-import * as nodeFetch3 from '@onsite/node-fetch';
-import nodeFetch2 from 'node-fetch-2';
-import * as undici from 'undici';
-import app from './test-server.js';
+// import { assert } from 'chai';
+// // import fetchCookie from '@onsite/fetch-cookie';
+// // import * as nodeFetch3 from '@onsite/node-fetch';
+// import fetchCookie from '@onsite/fetch-cookie';
+// import * as nodeFetch3 from 'cross-fetch';
+// import nodeFetch2 from 'node-fetch-2';
+// import * as undici from 'undici';
+// import * as process from 'process';
+// import app from './test-server.js';
+var assert = require('chai').assert;
+// import fetchCookie from '@onsite/fetch-cookie';
+// import * as nodeFetch3 from '@onsite/node-fetch';
+var fetchCookie = require('@onsite/fetch-cookie');
+var nodeFetch3 = require('cross-fetch').default;
+var nodeFetch2 = require('node-fetch-2');
+var undici = require('undici');
+var process = require('process');
+var app = require('./test-server.cjs');
+
+var nodeVersion = process != null && process.version ? process.version : "v10.x or lower";
 
 // https://github.com/nodejs/undici/blob/eec867d01c920b005051d5686e39a4e008e7d6ea/docs/best-practices/writing-tests.md
 undici.setGlobalDispatcher(new undici.Agent({
@@ -32,7 +46,14 @@ after('stop test server', () => {
 
 suite('node-fetch@3', nodeFetch3.default, nodeFetch3.Request);
 suite('node-fetch@2', nodeFetch2, nodeFetch2.Request);
-// suite('undici', undici.fetch, undici.Request);
+if(nodeVersion) {
+  // eslint-disable-next-line no-undef
+  console.log("Detected Node.js version is '" + nodeVersion + "', running undici server tests");
+  suite('undici', undici.fetch, undici.Request);
+} else {
+  // eslint-disable-next-line no-undef
+  console.log("Detected Node.js version is '" + nodeVersion + "', not running undici server tests");
+}
 
 function suite (name, fetchImpl, Request) {
   describe(name, () => {

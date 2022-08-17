@@ -222,9 +222,16 @@ function getCookiesFromResponse (response: Response): string[] {
   } else if(typeof maybeNodeFetchHeaders.keys === 'function') {
     const headerKeys = Array.from(maybeNodeFetchHeaders.keys());
     if(headerKeys.indexOf('set-cookie') > -1) {
-      let cookie1 = maybeNodeFetchHeaders.get("set-cookie");
-      cookie1 = cookie1 != null ? cookie1 : "";
-      return ['set-cookie', cookie1];
+      const setCookieHeaders:string[] = [];
+      const hdrCB = (val:string, key:string, parent?:Headers):void => {
+        const cookie = val;
+        setCookieHeaders.push(cookie);
+      };
+      maybeNodeFetchHeaders.forEach(hdrCB, maybeNodeFetchHeaders);
+      return setCookieHeaders;
+      // let cookie1 = maybeNodeFetchHeaders.get("set-cookie");
+      // cookie1 = cookie1 != null ? cookie1 : "";
+      // return ['set-cookie', cookie1];
     }
     return [];
   }

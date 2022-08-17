@@ -29,7 +29,8 @@
   "scripts": {
     "buildpreporiginal": "npm --prefix test/node_modules/node-fetch-2 ci && npm run patch-undici && npm run test && npm publish --dry-run",
     "buildprep": "npm --prefix test/node_modules/node-fetch-2 ci && npm run patch-undici",
-    "build": "esbuild src/*.ts --format=esm --outdir=esm && esbuild src/*.ts --format=cjs --outdir=cjs",
+    "build": "esbuild src/*.ts --format=esm --outdir=esm --target=node10.24 && esbuild src/*.ts --format=cjs --outdir=cjs --target=node10.24",
+    "build:test": "esbuild test/*.js --format=cjs --outdir=test/testcjs --target=node10.24",
     "clean": "rimraf esm cjs && mkdirp esm cjs",
     "lint": "eslint src/*.ts test/*.js",
     "lintOriginal": "ts-standard src/*.ts test/*.js",
@@ -46,18 +47,17 @@
     "tough-cookie": "^4.0.0"
   },
   "devDependencies": {
-    "@onsite/node-fetch": "3.3.0-rc.1",
     "@tsconfig/recommended": "^1.0.1",
     "@types/chai": "^4.3.0",
     "@types/express": "^4.17.13",
     "@types/mocha": "^9.1.0",
     "@types/node": "^12.20.55",
-    "@types/node-fetch": "^2.6.2",
     "@types/set-cookie-parser": "^2.4.2",
     "@types/tough-cookie": "^4.0.1",
     "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
     "chai": "^4.3.6",
+    "cross-fetch": "3.1.5",
     "esbuild": "^0.14.21",
     "eslint": "^8.21.0",
     "express": "^4.17.3",
@@ -71,6 +71,8 @@
   },
   "devDependenciesComments": {
     "removed": {
+      "@onsite/node-fetch": "3.3.0-rc.1",
+      "@types/node-fetch": "^2.6.2",
       "node-fetch": "^3.2.0"
     }
   }
